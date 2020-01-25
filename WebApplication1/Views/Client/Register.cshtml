@@ -1,0 +1,123 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+}
+@{ if (Session["iduser"] != null)
+    {
+        ViewBag.Message = "Vous Devez etre Deonnecte pour consulter cette page";
+        Response.Redirect("/Home/Indix");
+    }
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <link href="~/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="~/js/jquery.min.js"></script>
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Music Club Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <link rel="stylesheet" href="~/css/flexslider.css" type="text/css" media="screen" />
+    <!--//flexslider-->
+</head>
+<body>
+    <!--header-->
+    <div class="header header-main">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <h1><a href="/Home/Indix">Phone Store</a></h1>
+                </div>
+                <div class="top-nav">
+                    <span class="menu"><img src="~/images/menu.png" alt=""> </span>
+
+                    <!--script-->
+                    <script>
+                        $("span.menu").click(function () {
+                            $(".top-nav ul").slideToggle(500, function () {
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <!---->
+        </div>
+    </div>
+    <!--//header-->
+
+    <div id="client" class="container">
+        <form class="form-horizontal" v-on:submit.prevent="addClient(),rerender" method="post">
+            <hr />
+
+                    <input class="form-control" placeholder="Id" v-model="Nclient.id" type="text" style="display:none"/>
+
+            <div class="form-group">
+                <label class="control-label col-lg-2">Nom</label>
+                <div class="col-lg-10">
+                    <input class="form-control" placeholder="Nom" v-model="Nclient.nom" type="text" name="nom" />
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-2">Prenom</label>
+                <div class="col-lg-10">
+                    <input class="form-control" placeholder="Prenom Client" v-model="Nclient.prenom" type="text" name="prenom" />
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-2">Cin</label>
+                <div class="col-lg-10">
+                    <input class="form-control" placeholder="Cin" v-model="Nclient.cin" type="text" name="cin" />
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-2">Email</label>
+                <div class="col-lg-10">
+                    <input class="form-control" placeholder="email" v-model="Nclient.email" type="email" name="email" />
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-2">Password</label>
+                <div class="col-lg-10">
+                    <input class="form-control" placeholder="password" v-model="Nclient.passwordd" type="password" name="passwordd" />
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-2">Telephone</label>
+                <div class="col-lg-10">
+                    <input class="form-control" placeholder="telephone" v-model="Nclient.tel" type="text" name="tel" />
+                </div>
+
+            </div>
+            <hr />
+            <div class="col-lg-offset-2">
+                <button v-if="!edit" class="btn btn-primary" type="submit">S enregistrer</button>
+            </div>
+            <br /><br />
+        </form>
+        <br />
+        <hr />
+        <!--footer-->
+        <div class="footer">
+            <div class="container">
+                <h2><a href="/Home/Indix">Phone Store</a></h2>
+
+                <ul>
+
+                </ul>
+                <p> © 2019 Phone Store All rights reserved </p>
+            </div>
+        </div>
+        <!--//footer-->
+</body>
+</html>

@@ -1,0 +1,194 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@{ if (Session["iduser"] == null)
+    {
+        Response.Redirect("/Client/Login");
+    }
+    else if (Session["previlege"].ToString() != "admin")
+    {
+        Response.Redirect("/Home/Indix");
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Music Club A Music Category Flat Bootstarp Resposive Website Template | Album :: w3layouts</title>
+    <link href="~/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="~/js/jquery.min.js"></script>
+    <!-- Custom Theme files -->
+    <!--theme-style-->
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <!--//theme-style-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Music Club Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <script src="~/js/modernizr.custom.97074.js"></script>
+    <!--script-->
+    <script src="~/js/jquery.chocolat.js"></script>
+    <link rel="stylesheet" href="css/chocolat.css" type="text/css" media="screen" charset="utf-8">
+    <!--light-box-files -->
+    <script type="text/javascript" charset="utf-8">
+        $(function () {
+            $('.gallery a').Chocolat();
+        });
+    </script>
+
+</head>
+<body>
+    <!--header-->
+    <div class="header header-main">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <h1><a href="/Home/indix">Phone Store</a></h1>
+                </div>
+                <div class="top-nav">
+                    <span class="menu"><img src="images/menu.png" alt=""> </span>
+                    <ul>
+                        <li><a href="/Client/Index" class="hvr-sweep-to-bottom color"><i class="glyphicon glyphicon-home"></i>Clients </a> </li>
+                        <li><a href="/Categorie/Index" class="hvr-sweep-to-bottom color1"><i class="glyphicon glyphicon-picture"></i>Categories</a> </li>
+                        <li><a href="/Produit/Index" class="hvr-sweep-to-bottom color2"><i class="glyphicon glyphicon-tags"></i>Produits</a></li>
+                        <li><a href="/Commande/Index" class="hvr-sweep-to-bottom color3"><i class="glyphicon glyphicon-calendar"></i>Commandes</a></li>
+                        <li><a href="/Messenger/Index" class="hvr-sweep-to-bottom color4"><i class="glyphicon glyphicon-envelope"></i>Messages</a></li>
+                        <li><a href="/Client/Logout" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i>Deconnection</a></li>
+                        <div class="clearfix"> </div>
+                    </ul>
+                    <!--script-->
+                    <script>
+                        $("span.menu").click(function () {
+                            $(".top-nav ul").slideToggle(500, function () {
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="client" class="container" style="width:30%;margin-top:4%">
+        <label class="control-label">Gestion Des Cliens</label>
+        <form class="form-horizontal" v-on:submit.prevent="addClient(),rerender" method="post">
+            <hr />
+            <div class="form-group">
+                <label class="control-label col-lg-2">Id</label>
+                <div class="col-lg-10">
+                    <input class="form-control" placeholder="Id" v-model="Nclient.id" type="text" name="id" disabled />
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-2">Nom</label>
+                <div class="col-lg-10">
+                    <input class="form-control" placeholder="Nom" v-model="Nclient.nom" type="text" name="nom" />
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-2">Prenom</label>
+                <div class="col-lg-10">
+                    <input class="form-control" placeholder="Prenom" v-model="Nclient.prenom" type="text" name="prenom" />
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-2">Cin</label>
+                <div class="col-lg-10">
+                    <input class="form-control" placeholder="Cin" v-model="Nclient.cin" type="text" name="cin" />
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-2">Email</label>
+                <div class="col-lg-10">
+                    <input class="form-control" placeholder="email" v-model="Nclient.email" type="email" name="email" />
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-2">Password</label>
+                <div class="col-lg-10">
+                    <input class="form-control" placeholder="password" v-model="Nclient.passwordd" type="password" name="passwordd" />
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label class="control-label col-lg-2">Telephone</label>
+                <div class="col-lg-10">
+                    <input class="form-control" placeholder="telephone" v-model="Nclient.tel" type="text" name="tel" />
+                </div>
+
+            </div>
+            <hr />
+            <div class="col-lg-offset-2">
+                <button v-if="!edit" class="btn btn-primary" type="submit">Ajouter</button>
+                <a class="btn btn-danger" v-on:click="MajClient(Nclient)" v-if="edit">Enregister</a>
+                <button class="btn btn-default" v-on:click="edit = false" type="reset" v-if="edit">cancel</button>
+            </div>
+            <br /><br />
+        </form>
+        <br />
+
+        <input type="text" v-model="filtrerclient" class="form-control" placeholder="Chercher Client" />
+        <hr />
+        <table class="table table-bordered">
+            <tr>
+                <th>Id Client</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>CIN</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Tel</th>
+                <th>Modifer</th>
+                <th>Supprimer</th>
+
+            </tr>
+            <tr v-for="client in filtredclients">
+                <td>{{client.id }}</td>
+                <td>{{client.nom }}</td>
+                <td>{{client.prenom }}</td>
+                <td>{{client.cin }}</td>
+                <td>{{client.email }}</td>
+                <td>{{client.passwordd }}</td>
+                <td>{{client.tel }}</td>
+                <td><button v-on:click="editClient(client.id)" class="btn btn-success">Modifer</button></td>
+                <td><button v-on:click="deleteClient(client.id),rerender" class="btn btn-danger">Supprimer</button></td>
+            </tr>
+
+
+
+
+
+
+
+        </table>
+
+
+
+
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <h2><a href="/Home/indix">Phone Store</a></h2>
+            <ul>
+                <li><a href="/Client/Index">Gestion Des Clients</a> </li>
+                <li><a href="/Categorie/Index">Gestion Des Categories</a> </li>
+                <li><a href="/Produit/Index">Gestion Des Produits</a></li>
+                <li><a href="/Commande/Index">Liste Des Commandes</a></li>
+                <li><a href="/Messenger/Index">Messages</a></li>
+                <div class="clearfix"> </div>
+            </ul>
+            <p> © 2019 Phone Store</p>
+        </div>
+    </div>
+    <!--//footer-->
+</body>
+</html>

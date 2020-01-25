@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="13e6495a528742d59fbefdd67169e1b6" Name="Diagram1">
+        <EntityTypeShape EntityType="URBADBModel.ADMINSTRATEUR" Width="1.5" PointX="14" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="URBADBModel.CATEGORIE" Width="1.5" PointX="0.5" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="URBADBModel.CLIENT" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="URBADBModel.COMMAND" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="URBADBModel.MSG" Width="1.5" PointX="9.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="URBADBModel.PRODUIT" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="URBADBModel.SOUSCATEGORIE" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="URBADBModel.sysdiagrams" Width="1.5" PointX="11.875" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="URBADBModel.KHFIF3" Width="1.5" PointX="11.875" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="URBADBModel.FK__SOUSCATEG__idcat__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="URBADBModel.FK__COMMAND__idclien__276EDEB3" ManuallyRouted="false" />
+        <AssociationConnector Association="URBADBModel.FK__COMMAND__idprodu__5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="URBADBModel.FK__MSG__idcmd__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="URBADBModel.FK__PRODUIT__idcat__31EC6D26" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="URBADBModel.MESSENGER" Width="1.5" PointX="3.375" PointY="4.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

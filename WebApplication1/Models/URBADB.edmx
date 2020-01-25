@@ -1,0 +1,671 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="URBADBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ADMINSTRATEUR">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="prenom" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="cin" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="passwordd" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="tel" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="CATEGORIE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="libelle" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CLIENT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="prenom" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="cin" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="passwordd" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="tel" Type="varchar" MaxLength="10" />
+          <Property Name="role" Type="varchar" MaxLength="6" />
+        </EntityType>
+        <EntityType Name="COMMAND">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="datecmd" Type="date" Nullable="false" />
+          <Property Name="idclient" Type="int" />
+          <Property Name="idproduit" Type="int" />
+          <Property Name="qte" Type="int" />
+        </EntityType>
+        <EntityType Name="MESSENGER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="20" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="sujet" Type="varchar" MaxLength="50" />
+          <Property Name="MESSAGE" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="MSG">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="idcmd" Type="int" />
+        </EntityType>
+        <EntityType Name="PRODUIT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="libelle" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="stock" Type="int" Nullable="false" />
+          <Property Name="imagep" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="prix" Type="float" />
+          <Property Name="idcat" Type="int" />
+        </EntityType>
+        <EntityType Name="SOUSCATEGORIE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="libelle" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="idcat" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'URBADB.dbo.KHFIF3' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+        <EntityType Name="KHFIF3">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="datecmd" />
+            <PropertyRef Name="libelle" />
+            <PropertyRef Name="stock" />
+            <PropertyRef Name="imagep" />
+            <PropertyRef Name="catlib" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="datecmd" Type="date" Nullable="false" />
+          <Property Name="idclient" Type="int" />
+          <Property Name="qte" Type="int" />
+          <Property Name="libelle" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="stock" Type="int" Nullable="false" />
+          <Property Name="imagep" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="prix" Type="float" />
+          <Property Name="catlib" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__COMMAND__idclien__276EDEB3">
+          <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="0..1" />
+          <End Role="COMMAND" Type="Self.COMMAND" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="COMMAND">
+              <PropertyRef Name="idclient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__COMMAND__idprodu__5CD6CB2B">
+          <End Role="PRODUIT" Type="Self.PRODUIT" Multiplicity="0..1" />
+          <End Role="COMMAND" Type="Self.COMMAND" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUIT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="COMMAND">
+              <PropertyRef Name="idproduit" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MSG__idcmd__3E52440B">
+          <End Role="COMMAND" Type="Self.COMMAND" Multiplicity="0..1" />
+          <End Role="MSG" Type="Self.MSG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMMAND">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MSG">
+              <PropertyRef Name="idcmd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PRODUIT__idcat__31EC6D26">
+          <End Role="SOUSCATEGORIE" Type="Self.SOUSCATEGORIE" Multiplicity="0..1" />
+          <End Role="PRODUIT" Type="Self.PRODUIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SOUSCATEGORIE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PRODUIT">
+              <PropertyRef Name="idcat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SOUSCATEG__idcat__34C8D9D1">
+          <End Role="CATEGORIE" Type="Self.CATEGORIE" Multiplicity="0..1" />
+          <End Role="SOUSCATEGORIE" Type="Self.SOUSCATEGORIE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SOUSCATEGORIE">
+              <PropertyRef Name="idcat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="URBADBModelStoreContainer">
+          <EntitySet Name="ADMINSTRATEUR" EntityType="Self.ADMINSTRATEUR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CATEGORIE" EntityType="Self.CATEGORIE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CLIENT" EntityType="Self.CLIENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="COMMAND" EntityType="Self.COMMAND" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MESSENGER" EntityType="Self.MESSENGER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MSG" EntityType="Self.MSG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUIT" EntityType="Self.PRODUIT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SOUSCATEGORIE" EntityType="Self.SOUSCATEGORIE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KHFIF3" EntityType="Self.KHFIF3" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [KHFIF3].[id] AS [id], 
+    [KHFIF3].[datecmd] AS [datecmd], 
+    [KHFIF3].[idclient] AS [idclient], 
+    [KHFIF3].[qte] AS [qte], 
+    [KHFIF3].[libelle] AS [libelle], 
+    [KHFIF3].[stock] AS [stock], 
+    [KHFIF3].[imagep] AS [imagep], 
+    [KHFIF3].[prix] AS [prix], 
+    [KHFIF3].[catlib] AS [catlib]
+    FROM [dbo].[KHFIF3] AS [KHFIF3]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__COMMAND__idclien__276EDEB3" Association="Self.FK__COMMAND__idclien__276EDEB3">
+            <End Role="CLIENT" EntitySet="CLIENT" />
+            <End Role="COMMAND" EntitySet="COMMAND" />
+          </AssociationSet>
+          <AssociationSet Name="FK__COMMAND__idprodu__5CD6CB2B" Association="Self.FK__COMMAND__idprodu__5CD6CB2B">
+            <End Role="PRODUIT" EntitySet="PRODUIT" />
+            <End Role="COMMAND" EntitySet="COMMAND" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MSG__idcmd__3E52440B" Association="Self.FK__MSG__idcmd__3E52440B">
+            <End Role="COMMAND" EntitySet="COMMAND" />
+            <End Role="MSG" EntitySet="MSG" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PRODUIT__idcat__31EC6D26" Association="Self.FK__PRODUIT__idcat__31EC6D26">
+            <End Role="SOUSCATEGORIE" EntitySet="SOUSCATEGORIE" />
+            <End Role="PRODUIT" EntitySet="PRODUIT" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SOUSCATEG__idcat__34C8D9D1" Association="Self.FK__SOUSCATEG__idcat__34C8D9D1">
+            <End Role="CATEGORIE" EntitySet="CATEGORIE" />
+            <End Role="SOUSCATEGORIE" EntitySet="SOUSCATEGORIE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="URBADBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ADMINSTRATEUR">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prenom" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cin" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="passwordd" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tel" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CATEGORIE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="libelle" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="SOUSCATEGORIE" Relationship="Self.FK__SOUSCATEG__idcat__34C8D9D1" FromRole="CATEGORIE" ToRole="SOUSCATEGORIE" />
+        </EntityType>
+        <EntityType Name="CLIENT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prenom" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cin" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="passwordd" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tel" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="COMMAND" Relationship="Self.FK__COMMAND__idclien__276EDEB3" FromRole="CLIENT" ToRole="COMMAND" />
+          <Property Name="role" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="COMMAND">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="datecmd" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="idclient" Type="Int32" />
+          <Property Name="idproduit" Type="Int32" />
+          <Property Name="qte" Type="Int32" />
+          <NavigationProperty Name="CLIENT" Relationship="Self.FK__COMMAND__idclien__276EDEB3" FromRole="COMMAND" ToRole="CLIENT" />
+          <NavigationProperty Name="PRODUIT" Relationship="Self.FK__COMMAND__idprodu__5CD6CB2B" FromRole="COMMAND" ToRole="PRODUIT" />
+          <NavigationProperty Name="MSG" Relationship="Self.FK__MSG__idcmd__3E52440B" FromRole="COMMAND" ToRole="MSG" />
+        </EntityType>
+        <EntityType Name="MSG">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="idcmd" Type="Int32" />
+          <NavigationProperty Name="COMMAND" Relationship="Self.FK__MSG__idcmd__3E52440B" FromRole="MSG" ToRole="COMMAND" />
+        </EntityType>
+        <EntityType Name="PRODUIT">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="libelle" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="stock" Type="Int32" Nullable="false" />
+          <Property Name="imagep" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prix" Type="Double" />
+          <Property Name="idcat" Type="Int32" />
+          <NavigationProperty Name="COMMAND" Relationship="Self.FK__COMMAND__idprodu__5CD6CB2B" FromRole="PRODUIT" ToRole="COMMAND" />
+          <NavigationProperty Name="SOUSCATEGORIE" Relationship="Self.FK__PRODUIT__idcat__31EC6D26" FromRole="PRODUIT" ToRole="SOUSCATEGORIE" />
+        </EntityType>
+        <EntityType Name="SOUSCATEGORIE">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="libelle" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idcat" Type="Int32" />
+          <NavigationProperty Name="CATEGORIE" Relationship="Self.FK__SOUSCATEG__idcat__34C8D9D1" FromRole="SOUSCATEGORIE" ToRole="CATEGORIE" />
+          <NavigationProperty Name="PRODUIT" Relationship="Self.FK__PRODUIT__idcat__31EC6D26" FromRole="SOUSCATEGORIE" ToRole="PRODUIT" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="KHFIF3">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="datecmd" />
+            <PropertyRef Name="libelle" />
+            <PropertyRef Name="stock" />
+            <PropertyRef Name="imagep" />
+            <PropertyRef Name="catlib" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="datecmd" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="idclient" Type="Int32" />
+          <Property Name="qte" Type="Int32" />
+          <Property Name="libelle" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="stock" Type="Int32" Nullable="false" />
+          <Property Name="imagep" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prix" Type="Double" />
+          <Property Name="catlib" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__SOUSCATEG__idcat__34C8D9D1">
+          <End Role="CATEGORIE" Type="Self.CATEGORIE" Multiplicity="0..1" />
+          <End Role="SOUSCATEGORIE" Type="Self.SOUSCATEGORIE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SOUSCATEGORIE">
+              <PropertyRef Name="idcat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__COMMAND__idclien__276EDEB3">
+          <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="0..1" />
+          <End Role="COMMAND" Type="Self.COMMAND" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="COMMAND">
+              <PropertyRef Name="idclient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__COMMAND__idprodu__5CD6CB2B">
+          <End Role="PRODUIT" Type="Self.PRODUIT" Multiplicity="0..1" />
+          <End Role="COMMAND" Type="Self.COMMAND" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUIT">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="COMMAND">
+              <PropertyRef Name="idproduit" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MSG__idcmd__3E52440B">
+          <End Role="COMMAND" Type="Self.COMMAND" Multiplicity="0..1" />
+          <End Role="MSG" Type="Self.MSG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMMAND">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MSG">
+              <PropertyRef Name="idcmd" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PRODUIT__idcat__31EC6D26">
+          <End Role="SOUSCATEGORIE" Type="Self.SOUSCATEGORIE" Multiplicity="0..1" />
+          <End Role="PRODUIT" Type="Self.PRODUIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SOUSCATEGORIE">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PRODUIT">
+              <PropertyRef Name="idcat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="URBADBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ADMINSTRATEUR" EntityType="Self.ADMINSTRATEUR" />
+          <EntitySet Name="CATEGORIE" EntityType="Self.CATEGORIE" />
+          <EntitySet Name="CLIENT" EntityType="Self.CLIENT" />
+          <EntitySet Name="COMMAND" EntityType="Self.COMMAND" />
+          <EntitySet Name="MSG" EntityType="Self.MSG" />
+          <EntitySet Name="PRODUIT" EntityType="Self.PRODUIT" />
+          <EntitySet Name="SOUSCATEGORIE" EntityType="Self.SOUSCATEGORIE" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="KHFIF3" EntityType="Self.KHFIF3" />
+          <AssociationSet Name="FK__SOUSCATEG__idcat__34C8D9D1" Association="Self.FK__SOUSCATEG__idcat__34C8D9D1">
+            <End Role="CATEGORIE" EntitySet="CATEGORIE" />
+            <End Role="SOUSCATEGORIE" EntitySet="SOUSCATEGORIE" />
+          </AssociationSet>
+          <AssociationSet Name="FK__COMMAND__idclien__276EDEB3" Association="Self.FK__COMMAND__idclien__276EDEB3">
+            <End Role="CLIENT" EntitySet="CLIENT" />
+            <End Role="COMMAND" EntitySet="COMMAND" />
+          </AssociationSet>
+          <AssociationSet Name="FK__COMMAND__idprodu__5CD6CB2B" Association="Self.FK__COMMAND__idprodu__5CD6CB2B">
+            <End Role="PRODUIT" EntitySet="PRODUIT" />
+            <End Role="COMMAND" EntitySet="COMMAND" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MSG__idcmd__3E52440B" Association="Self.FK__MSG__idcmd__3E52440B">
+            <End Role="COMMAND" EntitySet="COMMAND" />
+            <End Role="MSG" EntitySet="MSG" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PRODUIT__idcat__31EC6D26" Association="Self.FK__PRODUIT__idcat__31EC6D26">
+            <End Role="SOUSCATEGORIE" EntitySet="SOUSCATEGORIE" />
+            <End Role="PRODUIT" EntitySet="PRODUIT" />
+          </AssociationSet>
+          <EntitySet Name="MESSENGER" EntityType="URBADBModel.MESSENGER" />
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(URBADBModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(URBADBModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+        </EntityContainer>
+        <EntityType Name="MESSENGER">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sujet" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MESSAGE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="URBADBModelStoreContainer" CdmEntityContainer="URBADBEntities">
+          <EntitySetMapping Name="ADMINSTRATEUR">
+            <EntityTypeMapping TypeName="URBADBModel.ADMINSTRATEUR">
+              <MappingFragment StoreEntitySet="ADMINSTRATEUR">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="prenom" ColumnName="prenom" />
+                <ScalarProperty Name="cin" ColumnName="cin" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="passwordd" ColumnName="passwordd" />
+                <ScalarProperty Name="tel" ColumnName="tel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CATEGORIE">
+            <EntityTypeMapping TypeName="URBADBModel.CATEGORIE">
+              <MappingFragment StoreEntitySet="CATEGORIE">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="libelle" ColumnName="libelle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CLIENT">
+            <EntityTypeMapping TypeName="URBADBModel.CLIENT">
+              <MappingFragment StoreEntitySet="CLIENT">
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="prenom" ColumnName="prenom" />
+                <ScalarProperty Name="cin" ColumnName="cin" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="passwordd" ColumnName="passwordd" />
+                <ScalarProperty Name="tel" ColumnName="tel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COMMAND">
+            <EntityTypeMapping TypeName="URBADBModel.COMMAND">
+              <MappingFragment StoreEntitySet="COMMAND">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="datecmd" ColumnName="datecmd" />
+                <ScalarProperty Name="idclient" ColumnName="idclient" />
+                <ScalarProperty Name="idproduit" ColumnName="idproduit" />
+                <ScalarProperty Name="qte" ColumnName="qte" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MSG">
+            <EntityTypeMapping TypeName="URBADBModel.MSG">
+              <MappingFragment StoreEntitySet="MSG">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idcmd" ColumnName="idcmd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUIT">
+            <EntityTypeMapping TypeName="URBADBModel.PRODUIT">
+              <MappingFragment StoreEntitySet="PRODUIT">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="libelle" ColumnName="libelle" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
+                <ScalarProperty Name="imagep" ColumnName="imagep" />
+                <ScalarProperty Name="prix" ColumnName="prix" />
+                <ScalarProperty Name="idcat" ColumnName="idcat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SOUSCATEGORIE">
+            <EntityTypeMapping TypeName="URBADBModel.SOUSCATEGORIE">
+              <MappingFragment StoreEntitySet="SOUSCATEGORIE">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="libelle" ColumnName="libelle" />
+                <ScalarProperty Name="idcat" ColumnName="idcat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="URBADBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KHFIF3">
+            <EntityTypeMapping TypeName="URBADBModel.KHFIF3">
+              <MappingFragment StoreEntitySet="KHFIF3">
+                <ScalarProperty Name="catlib" ColumnName="catlib" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="datecmd" ColumnName="datecmd" />
+                <ScalarProperty Name="idclient" ColumnName="idclient" />
+                <ScalarProperty Name="qte" ColumnName="qte" />
+                <ScalarProperty Name="libelle" ColumnName="libelle" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
+                <ScalarProperty Name="imagep" ColumnName="imagep" />
+                <ScalarProperty Name="prix" ColumnName="prix" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MESSENGER">
+            <EntityTypeMapping TypeName="URBADBModel.MESSENGER">
+              <MappingFragment StoreEntitySet="MESSENGER">
+                <ScalarProperty Name="MESSAGE" ColumnName="MESSAGE" />
+                <ScalarProperty Name="sujet" ColumnName="sujet" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="URBADBModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="URBADBModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="URBADBModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="URBADBModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="URBADBModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="URBADBModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="URBADBModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="URBADBModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="URBADBModel.Store.sp_upgraddiagrams" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

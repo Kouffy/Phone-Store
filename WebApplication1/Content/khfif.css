@@ -1,0 +1,150 @@
+﻿
+.back {
+    width: 100%;
+    height: 100vh;
+    background: url("/asssets/dims.jpg");
+    background-size: cover;
+}
+
+body {
+    background-color: #fff;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+}
+
+.navbar-inverse .navbar-nav > li:first-of-type {
+    color: white;
+    background: #F0637B;
+}
+
+.navbar-inverse .navbar-nav > li a:hover {
+    color: white;
+    background: #F0637B;
+}
+
+.navbar-inverse {
+    background-color: #05a58d;
+}
+
+.back .logo .con {
+    margin-left: 22%;
+    width: 500px;
+    border: 2px solid;
+    height: 150px;
+}
+
+    .back .logo .con p {
+        font-family: Arial Tahoma sans-serif;
+        font-weight: bold;
+        font-style: italic;
+        font-size: 50px;
+        margin-left: 23%;
+        color: red;
+    }
+
+    .back .logo .con button {
+        margin-left: 70%;
+    }
+
+.grid {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+}
+
+.sec2 {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    min-height: 30vh;
+}
+
+.tt {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 0px;
+    padding: 0px;
+}
+
+    .tt .card {
+        position: relative;
+        height: 250px;
+        background: #fff;
+        width: 350px;
+        display: flex;
+        margin: 30px 0;
+        margin-left: 15%;
+        overflow: hidden;
+        border-radius: 5%;
+        border-width: 2px;
+        border-style: solid;
+        border-color: grey;
+    }
+
+        .tt .card .imgBx {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #e9e7e9;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            transition: 0.5s ease-in-out;
+            border-radius: 5%;
+        }
+
+        .tt .card:hover .imgBx {
+            width: 150px;
+            height: 150px;
+            left: -75px;
+            top: calc(50% -75px);
+            transition: 0.5s ease-in-out;
+        }
+
+        .tt .card .imgBx:before {
+            content: attr(data-text);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            font-size: 6em;
+            color: rgba(255,255,255,.05);
+            font-weight: 700;
+        }
+
+        .tt .card .imgBx img {
+            max-width: 100%;
+            transition: 0.5s ease-in-out;
+            background: black;
+        }
+
+        .tt .card:hover .imgBx img {
+            max-width: 150%;
+            background: black;
+        }
+
+        .tt .card .content {
+            position: absolute;
+            right: 0;
+            width: calc(100% - 50px);
+            height: 100%;
+            padding: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+
+

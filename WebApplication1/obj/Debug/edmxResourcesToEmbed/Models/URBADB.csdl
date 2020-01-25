@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="URBADBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ADMINSTRATEUR">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="nom" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="prenom" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cin" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="passwordd" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tel" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="CATEGORIE">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="libelle" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="SOUSCATEGORIE" Relationship="Self.FK__SOUSCATEG__idcat__34C8D9D1" FromRole="CATEGORIE" ToRole="SOUSCATEGORIE" />
+  </EntityType>
+  <EntityType Name="CLIENT">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="nom" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="prenom" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cin" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="passwordd" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tel" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="COMMAND" Relationship="Self.FK__COMMAND__idclien__276EDEB3" FromRole="CLIENT" ToRole="COMMAND" />
+    <Property Name="role" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="COMMAND">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="datecmd" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="idclient" Type="Int32" />
+    <Property Name="idproduit" Type="Int32" />
+    <Property Name="qte" Type="Int32" />
+    <NavigationProperty Name="CLIENT" Relationship="Self.FK__COMMAND__idclien__276EDEB3" FromRole="COMMAND" ToRole="CLIENT" />
+    <NavigationProperty Name="PRODUIT" Relationship="Self.FK__COMMAND__idprodu__5CD6CB2B" FromRole="COMMAND" ToRole="PRODUIT" />
+    <NavigationProperty Name="MSG" Relationship="Self.FK__MSG__idcmd__3E52440B" FromRole="COMMAND" ToRole="MSG" />
+  </EntityType>
+  <EntityType Name="MSG">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="idcmd" Type="Int32" />
+    <NavigationProperty Name="COMMAND" Relationship="Self.FK__MSG__idcmd__3E52440B" FromRole="MSG" ToRole="COMMAND" />
+  </EntityType>
+  <EntityType Name="PRODUIT">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="libelle" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="stock" Type="Int32" Nullable="false" />
+    <Property Name="imagep" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="prix" Type="Double" />
+    <Property Name="idcat" Type="Int32" />
+    <NavigationProperty Name="COMMAND" Relationship="Self.FK__COMMAND__idprodu__5CD6CB2B" FromRole="PRODUIT" ToRole="COMMAND" />
+    <NavigationProperty Name="SOUSCATEGORIE" Relationship="Self.FK__PRODUIT__idcat__31EC6D26" FromRole="PRODUIT" ToRole="SOUSCATEGORIE" />
+  </EntityType>
+  <EntityType Name="SOUSCATEGORIE">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="libelle" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idcat" Type="Int32" />
+    <NavigationProperty Name="CATEGORIE" Relationship="Self.FK__SOUSCATEG__idcat__34C8D9D1" FromRole="SOUSCATEGORIE" ToRole="CATEGORIE" />
+    <NavigationProperty Name="PRODUIT" Relationship="Self.FK__PRODUIT__idcat__31EC6D26" FromRole="SOUSCATEGORIE" ToRole="PRODUIT" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="KHFIF3">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="datecmd" />
+      <PropertyRef Name="libelle" />
+      <PropertyRef Name="stock" />
+      <PropertyRef Name="imagep" />
+      <PropertyRef Name="catlib" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="datecmd" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="idclient" Type="Int32" />
+    <Property Name="qte" Type="Int32" />
+    <Property Name="libelle" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="stock" Type="Int32" Nullable="false" />
+    <Property Name="imagep" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="prix" Type="Double" />
+    <Property Name="catlib" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__SOUSCATEG__idcat__34C8D9D1">
+    <End Role="CATEGORIE" Type="Self.CATEGORIE" Multiplicity="0..1" />
+    <End Role="SOUSCATEGORIE" Type="Self.SOUSCATEGORIE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CATEGORIE">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="SOUSCATEGORIE">
+        <PropertyRef Name="idcat" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__COMMAND__idclien__276EDEB3">
+    <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="0..1" />
+    <End Role="COMMAND" Type="Self.COMMAND" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENT">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="COMMAND">
+        <PropertyRef Name="idclient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__COMMAND__idprodu__5CD6CB2B">
+    <End Role="PRODUIT" Type="Self.PRODUIT" Multiplicity="0..1" />
+    <End Role="COMMAND" Type="Self.COMMAND" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUIT">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="COMMAND">
+        <PropertyRef Name="idproduit" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MSG__idcmd__3E52440B">
+    <End Role="COMMAND" Type="Self.COMMAND" Multiplicity="0..1" />
+    <End Role="MSG" Type="Self.MSG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COMMAND">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="MSG">
+        <PropertyRef Name="idcmd" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PRODUIT__idcat__31EC6D26">
+    <End Role="SOUSCATEGORIE" Type="Self.SOUSCATEGORIE" Multiplicity="0..1" />
+    <End Role="PRODUIT" Type="Self.PRODUIT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SOUSCATEGORIE">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PRODUIT">
+        <PropertyRef Name="idcat" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="URBADBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ADMINSTRATEUR" EntityType="Self.ADMINSTRATEUR" />
+    <EntitySet Name="CATEGORIE" EntityType="Self.CATEGORIE" />
+    <EntitySet Name="CLIENT" EntityType="Self.CLIENT" />
+    <EntitySet Name="COMMAND" EntityType="Self.COMMAND" />
+    <EntitySet Name="MSG" EntityType="Self.MSG" />
+    <EntitySet Name="PRODUIT" EntityType="Self.PRODUIT" />
+    <EntitySet Name="SOUSCATEGORIE" EntityType="Self.SOUSCATEGORIE" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="KHFIF3" EntityType="Self.KHFIF3" />
+    <AssociationSet Name="FK__SOUSCATEG__idcat__34C8D9D1" Association="Self.FK__SOUSCATEG__idcat__34C8D9D1">
+      <End Role="CATEGORIE" EntitySet="CATEGORIE" />
+      <End Role="SOUSCATEGORIE" EntitySet="SOUSCATEGORIE" />
+    </AssociationSet>
+    <AssociationSet Name="FK__COMMAND__idclien__276EDEB3" Association="Self.FK__COMMAND__idclien__276EDEB3">
+      <End Role="CLIENT" EntitySet="CLIENT" />
+      <End Role="COMMAND" EntitySet="COMMAND" />
+    </AssociationSet>
+    <AssociationSet Name="FK__COMMAND__idprodu__5CD6CB2B" Association="Self.FK__COMMAND__idprodu__5CD6CB2B">
+      <End Role="PRODUIT" EntitySet="PRODUIT" />
+      <End Role="COMMAND" EntitySet="COMMAND" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MSG__idcmd__3E52440B" Association="Self.FK__MSG__idcmd__3E52440B">
+      <End Role="COMMAND" EntitySet="COMMAND" />
+      <End Role="MSG" EntitySet="MSG" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PRODUIT__idcat__31EC6D26" Association="Self.FK__PRODUIT__idcat__31EC6D26">
+      <End Role="SOUSCATEGORIE" EntitySet="SOUSCATEGORIE" />
+      <End Role="PRODUIT" EntitySet="PRODUIT" />
+    </AssociationSet>
+    <EntitySet Name="MESSENGER" EntityType="URBADBModel.MESSENGER" />
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(URBADBModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(URBADBModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <EntityType Name="MESSENGER">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="sujet" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MESSAGE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>
